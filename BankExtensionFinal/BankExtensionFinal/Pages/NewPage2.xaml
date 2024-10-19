@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BankExtensionFinal.Pages.NewPage2"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Градиентный стиль для кнопок -->
+            <Style x:Key="GradientButtonStyle" TargetType="Button">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FF8204" Offset="0.0" />
+                            <!-- Темно-оранжевый -->
+                            <GradientStop Color="#FFB738" Offset="1.0" />
+                            <!-- Светло-оранжевый -->
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="100,25,100,20" />
+                <Setter Property="FontFamily" Value="sf-ui-display-bold" />
+            </Style>
+
+            <!-- Стиль для CheckBox -->
+            <Style x:Key="BlackCheckBoxStyle" TargetType="CheckBox">
+                <Setter Property="Color" Value="grey"/>
+            </Style>
+
+            <!-- Стиль для Label -->
+            <Style x:Key="DefaultLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="sf-ui-display-light" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Градиентный фон для верхней панели -->
+        <BoxView Grid.Row="0">
+            <BoxView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="DarkOrange" Offset="0.0" />
+                    <GradientStop Color="Orange" Offset="1.0" />
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- Логотип и текст на верхней панели -->
+        <Grid Grid.Row="0" Padding="10" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,35,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="bank_logo.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="Center" SemanticProperties.Description="Bank logo" />
+            <Label Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" Text="Belagroprombank" FontSize="19" TextColor="White" FontFamily="sf-ui-display-bold" />
+        </Grid>
+
+        <ScrollView Grid.Row="1" x:Name="ChatScrollView">
+            <StackLayout x:Name="MessagesStackLayout" Padding="5">
+                <!-- Сюда добавляются сообщения -->
+            </StackLayout>
+        </ScrollView>
+
+        <Frame Grid.Row="2" BackgroundColor="Transparent" Padding="10" CornerRadius="30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Радио-кнопки для выбора категории -->
+                <Grid x:Name="RadioButtonsFrame" Grid.Row="0" BackgroundColor="White" Padding="15" Margin="10,0" IsVisible="False">
+                    <StackLayout>
+                        <RadioButton x:Name="ReduceCostsRadioButton" Content="Снижение затрат" Style="{StaticResource DefaultLabelStyle}" Margin="0"/>
+                        <RadioButton x:Name="IncreaseRevenueRadioButton" Content="Повышение дохода" Style="{StaticResource DefaultLabelStyle}" Margin="0"/>
+                        <RadioButton x:Name="SavingsRecommendationsRadioButton" Content="Рекомендации по сбережениям" Style="{StaticResource DefaultLabelStyle}" Margin="0"/>
+                        <RadioButton x:Name="InvestmentsRadioButton" Content="Инвестиции" Style="{StaticResource DefaultLabelStyle}" Margin="0"/>
+                        <RadioButton x:Name="FinancialGoalRadioButton" Content="Финансовая цель" Style="{StaticResource DefaultLabelStyle}" Margin="0"/>
+                        <RadioButton x:Name="CharityRadioButton" Content="Благотворительность" Style="{StaticResource DefaultLabelStyle}" Margin="0"/>
+                    </StackLayout>
+                </Grid>
+
+                <!-- Варианты категорий -->
+                <Grid x:Name="Categories" Grid.Row="1" BackgroundColor="White" Padding="0" Margin="0" IsVisible="False">
+                    <ScrollView>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Продукты -->
+                            <CheckBox x:Name="ProductsCheckBox" Grid.Row="0" Grid.Column="0" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="Продукты" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Рестораны -->
+                            <CheckBox x:Name="RestaurantsCheckBox" Grid.Row="1" Grid.Column="0" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="Рестораны" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Транспорт -->
+                            <CheckBox x:Name="TransportCheckBox" Grid.Row="2" Grid.Column="0" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="Транспорт" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Дом -->
+                            <CheckBox x:Name="HomeCheckBox" Grid.Row="0" Grid.Column="2" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="0" Grid.Column="3" Text="Дом" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Техника -->
+                            <CheckBox x:Name="EquipmentCheckBox" Grid.Row="1" Grid.Column="2" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="1" Grid.Column="3" Text="Техника" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Одежда и обувь -->
+                            <CheckBox x:Name="ClothingCheckBox" Grid.Row="2" Grid.Column="2" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="2" Grid.Column="3" Text="Одежда и обувь" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Здоровье -->
+                            <CheckBox x:Name="HealthCheckBox" Grid.Row="3" Grid.Column="0" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="3" Grid.Column="1" Text="Здоровье" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Красота -->
+                            <CheckBox x:Name="BeautyCheckBox" Grid.Row="4" Grid.Column="0" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="4" Grid.Column="1" Text="Красота" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Развлечения -->
+                            <CheckBox x:Name="EntertainmentCheckBox" Grid.Row="5" Grid.Column="0" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="5" Grid.Column="1" Text="Развлечения" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Образование -->
+                            <CheckBox x:Name="EducationCheckBox" Grid.Row="3" Grid.Column="2" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="3" Grid.Column="3" Text="Образование" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Долги -->
+                            <CheckBox x:Name="DebtsCheckBox" Grid.Row="4" Grid.Column="2" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Row="4" Grid.Column="3" Text="Долги" FontSize="12" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+
+                            <!-- Все -->
+                            <CheckBox x:Name="AllCheckBox" Grid.Row="5" Grid.Column="2" Style="{StaticResource BlackCheckBoxStyle}" CheckedChanged="AllCheckBox_CheckedChanged" />
+                            <Label Grid.Row="5" Grid.Column="3" Text="Все" FontSize="11" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,0" />
+                        </Grid>
+                    </ScrollView>
+                </Grid>
+
+                <!-- Интересы -->
+                <Grid x:Name="Interests" Grid.Row="1" BackgroundColor="White" Padding="15" Margin="10,0" IsVisible="False">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="ArtsCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Искусство и культура" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="SportCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Спорт и физическая активность" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="TravellingCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Путешествия и приключения" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="LiteratureCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Чтение и литература" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="CookingCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Кулинария и гастрономия" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="ScienceCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Наука и исследования" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox x:Name="FashionCheckBox" Style="{StaticResource BlackCheckBoxStyle}" Margin="0" CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Мода и стиль" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <RadioButton x:Name="OtherRadioButton" Margin="0" CheckedChanged="OtherRadioButton_CheckedChanged" />
+                            <Label Grid.Column="1" Text="Другое (укажите)" Style="{StaticResource DefaultLabelStyle}" VerticalOptions="Center" />
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+
+                <!-- Кнопка "Начать" -->
+                <Button x:Name="SendButton" Grid.Row="2"
+                    Text="Начать"
+                    Style="{StaticResource GradientButtonStyle}"
+                    Clicked="OnSendButtonClicked" />
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             x:Class="BankExtensionFinal.Pages.NewPage1"
+             Shell.NavBarIsVisible="False"
+             Title="Главная"
+             >
+    <ContentPage.Content>
+        <Grid>
+
+
+            <!-- Основной контент страницы -->
+            <Grid RowDefinitions="Auto,*">
+                <!-- Gradient Background -->
+                <BoxView Grid.Row="0"
+             BackgroundColor="Transparent"
+             VerticalOptions="FillAndExpand"
+             HorizontalOptions="FillAndExpand">
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#0a357a" Offset="0.0" />
+                            <GradientStop Color="#1f6eed" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
+                <!-- Header Section -->
+                <Grid Padding="15,45,15,10"
+          BackgroundColor="Transparent" 
+                    Margin="0,0,0,15"
+          HeightRequest="85"
+          HorizontalOptions="FillAndExpand"
+          Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Главная"
+               FontSize="19"
+               FontFamily="sf-ui-display-bold"
+               TextColor="White"
+               VerticalOptions="Center"
+               HorizontalOptions="Start"/>
+                    <ImageButton Grid.Column="1"
+                     HorizontalOptions="End"
+                     VerticalOptions="Center"
+                     BackgroundColor="Transparent"
+                     Source="menu_icon.png"
+                     WidthRequest="31"
+                     HeightRequest="31"
+                     Clicked="OnMenuButtonClicked"/>
+                </Grid>
+
+                <!-- Main Content -->
+                <ScrollView Grid.Row="1" Margin="0,3">
+                    <VerticalStackLayout Spacing="5" Margin="7,0,7,0">
+                        <Frame CornerRadius="25" Padding="5" BackgroundColor="White" Margin="0,0,0,3" HasShadow="True" HeightRequest="310">
+                            <Grid>
+                                <!-- Центрируемый элемент -->
+                                <Frame HasShadow="True" HeightRequest="200" WidthRequest="200"
+                                       HorizontalOptions="Center" VerticalOptions="Center"
+                                       BorderColor="LightGray" Padding="0" CornerRadius="100">
+                                    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                                        <!-- Placeholder for circular graph representation -->
+                                        <Frame HeightRequest="180" WidthRequest="180" 
+                                               BackgroundColor="Transparent" BorderColor="LightGray" CornerRadius="90"/>
+                                        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                            <Frame HasShadow="True" HeightRequest="200" WidthRequest="200"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               BorderColor="LightGray" Padding="0" CornerRadius="100">
+                                                <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                                                    <skia:SKCanvasView x:Name="circularGraph" PaintSurface="OnPaintSurface" />
+                                                    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                                                        <Label x:Name="totalSpentLabel" Text="Итого: 0 BYN" FontSize="20" FontFamily="sf-ui-display-bold" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                        <Label x:Name="dateLabel" Text="Loading..." FontSize="12" FontFamily="sf-ui-display-light" TextColor="Gray" HorizontalOptions="Center"/>
+                                                    </StackLayout>
+                                                </Grid>
+                                            </Frame>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+
+                                <!-- AbsoluteLayout для кнопок -->
+                                <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                    <!-- Левая кнопка -->
+                                    <Button ImageSource="morebutton.png" BackgroundColor="Transparent"
+                                            AbsoluteLayout.LayoutBounds="0.0, 1, AutoSize, AutoSize"
+                                            AbsoluteLayout.LayoutFlags="PositionProportional" Clicked="OnShowTransactionsButtonClicked"/>
+
+                                    <!-- Правая кнопка -->
+                                    <Button x:Name="addButton" ImageSource="addbutton.png" BackgroundColor="Transparent"
+                                            AbsoluteLayout.LayoutBounds="1, 1, AutoSize, AutoSize"
+                                            AbsoluteLayout.LayoutFlags="PositionProportional"
+                                            Clicked="OnAddButtonClicked"/>
+                                    <!--<Button Text="Сбросить транзакции" Clicked="OnResetTransactionsClicked" AbsoluteLayout.LayoutBounds="1, 0, 60, 60"
+AbsoluteLayout.LayoutFlags="PositionProportional" BackgroundColor="Red" TextColor="White" FontFamily="sf-ui-display-medium" CornerRadius="20" Margin="0,15,0,0" />-->
+                                </AbsoluteLayout>
+                            </Grid>
+                        </Frame>
+
+                        <!-- Categories Section with Rounded Rectangle -->
+                        <Frame CornerRadius="25" Padding="0" BackgroundColor="White">
+                            <ScrollView Orientation="Vertical">
+                                <Grid HorizontalOptions="FillAndExpand" ColumnDefinitions="*,*,*,*,*,*" Padding="25,13,25,13" ColumnSpacing="7">
+                                    <!-- ImageButton placeholders with reduced size -->
+                                    <ImageButton Source="categ1.jpg" BackgroundColor="Transparent" CornerRadius="0" Grid.Column="0" Clicked="OnCategoryButtonClicked" CommandParameter="Продукты"/>
+                                    <ImageButton Source="categ2.jpg" BackgroundColor="Transparent" CornerRadius="0" Grid.Column="1" Clicked="OnCategoryButtonClicked" CommandParameter="Транспорт"/>
+                                    <ImageButton Source="categ3.jpg" BackgroundColor="Transparent" CornerRadius="0" Grid.Column="2" Clicked="OnCategoryButtonClicked" CommandParameter="Рестораны"/>
+                                    <ImageButton Source="categ4.jpg" BackgroundColor="Transparent" CornerRadius="0" Grid.Column="3" Clicked="OnCategoryButtonClicked" CommandParameter="Недвижимость"/>
+                                    <ImageButton Source="categ5.jpg" BackgroundColor="Transparent" CornerRadius="0" Grid.Column="4" Clicked="OnCategoryButtonClicked" CommandParameter="Обслуживание"/>
+                                    <ImageButton Source="categ6.jpg" BackgroundColor="Transparent" CornerRadius="0" Grid.Column="5" Clicked="OnCategoryButtonClicked" CommandParameter="Другое"/>
+                                </Grid>
+                            </ScrollView>
+                        </Frame>
+                        <!-- Cashback Section and UNICEF Logo in the same row -->
+                        <Grid HorizontalOptions="FillAndExpand" ColumnDefinitions="*,Auto">
+                            <!-- Cashback Section -->
+                            <Frame CornerRadius="20" Padding="27,17,27,17" BackgroundColor="White" HorizontalOptions="Start" VerticalOptions="Center">
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Label Text="Кэшбэк" FontSize="18" FontFamily="sf-ui-display-bold" TextColor="Black" HorizontalOptions="Start"/>
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text=" 3.40" FontSize="18" FontFamily="sf-ui-display-bold" TextColor="Black"/>
+                                                <Span Text=" BYN" FontSize="12" FontFamily="sf-ui-display-light" TextColor="Black"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+                            </Frame>
+                            <!-- UNICEF Logo -->
+                            <Image Source="unicef_logo.png" HorizontalOptions="End" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <Frame BackgroundColor="White" CornerRadius="10" Padding="10">
+                            <VerticalStackLayout Spacing="0">
+                                <!-- Заголовок -->
+                                <Label Text="Благотворительные организации" FontFamily="sf-ui-display-black" FontSize="18" TextColor="Black" Margin="0,2,0,15"/>
+
+                                <!-- Grid для размещения заголовков, описаний и линий -->
+                                <Grid>
+                                    <!-- Определяем строки для элементов и линий -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- МИР БЕЗ ГРАНИЦ -->
+                                    <StackLayout Grid.Row="0" Orientation="Vertical" Spacing="0">
+                                        <Label Text="МИР БЕЗ ГРАНИЦ"
+                                               FontSize="16"
+                                               FontFamily="sf-ui-display-medium"
+                                               TextColor="Black"
+                                               ClassId="mirBezGranitsDescription">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnLabelTapped"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label x:Name="mirBezGranitsDescription" IsVisible="False" 
+                                               Text="оказание всесторонней помощи и поддержки детям с особенностями психофизического развития, подросткам в конфликте и контакте с законом."
+                                               FontSize="13" FontFamily="sf-ui-display-light" TextColor="Black"/>
+                                    </StackLayout>
+                                    <BoxView Color="LightGray" HeightRequest="1" Grid.Row="1" HorizontalOptions="FillAndExpand" />
+
+                                    <!-- ЮниХелл МБОО -->
+                                    <StackLayout Grid.Row="2" Orientation="Vertical" Spacing="0">
+                                        <Label Text="ЮниХелл МБОО" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="Black"
+                                               AutomationProperties.Name="yunihellDescription">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnLabelTapped" CommandParameter="yunihellDescription" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label x:Name="yunihellDescription" IsVisible="False" 
+                                               Text="Текст описания для ЮниХелл МБОО."
+                                               FontSize="13" FontFamily="sf-ui-display-light" TextColor="Black"/>
+                                    </StackLayout>
+                                    <BoxView Color="LightGray" HeightRequest="1" Grid.Row="3" HorizontalOptions="FillAndExpand" />
+
+                                    <!-- ЖИЗНИ-ДА -->
+                                    <StackLayout Grid.Row="4" Orientation="Vertical" Spacing="0">
+                                        <Label Text="ЖИЗНИ-ДА" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="Black"
+                                               AutomationProperties.Name="zhizniDaDescription">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnLabelTapped" CommandParameter="zhizniDaDescription" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                        <Label x:Name="zhizniDaDescription" IsVisible="False" 
+                                               Text="Текст описания для ЖИЗНИ-ДА."
+                                               FontSize="13" FontFamily="sf-ui-display-light" TextColor="Black"/>
+                                    </StackLayout>
+                                    <BoxView Color="LightGray" HeightRequest="1" Grid.Row="5" HorizontalOptions="FillAndExpand" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Grid>
+            <!-- Затемняющий фон -->
+            <Frame x:Name="overlayBackground" IsVisible="False" BackgroundColor="#80000000" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+            <!-- Overlays -->
+            <!-- Overlay for selecting category -->
+            <Frame x:Name="categoryOverlay" IsVisible="False" BackgroundColor="white" Padding="20" VerticalOptions="Center" HorizontalOptions="Center" CornerRadius="10" WidthRequest="300">
+                <VerticalStackLayout>
+                    <!-- Заголовок -->
+                    <Label Text="Категории" FontSize="20" FontFamily="sf-ui-display-bold" TextColor="black" HorizontalOptions="Center" Margin="0,0,0,10"/>
+
+                    <!-- Категории -->
+                    <ScrollView>
+                        <VerticalStackLayout>
+                            <!-- Category 1 -->
+                            <Grid Padding="10" ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                                <Image Source="categ1.jpg" Aspect="AspectFill" HeightRequest="50" WidthRequest="50" Grid.Column="0" Margin="0,0,10,0"/>
+                                <Label Text="Продукты" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="black" VerticalOptions="Center" Grid.Column="1"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategorySelected" CommandParameter="Продукты"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+                            <!-- Category 2 -->
+                            <Grid Padding="10" ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                                <Image Source="categ2.jpg" Aspect="AspectFill" HeightRequest="50" WidthRequest="50" Grid.Column="0" Margin="0,0,10,0"/>
+                                <Label Text="Транспорт" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="black" VerticalOptions="Center" Grid.Column="1"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategorySelected" CommandParameter="Транспорт"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+
+                            <!-- Category 3 -->
+                            <Grid Padding="10" ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                                <Image Source="categ3.jpg" Aspect="AspectFill" HeightRequest="50" WidthRequest="50" Grid.Column="0" Margin="0,0,10,0"/>
+                                <Label Text="Рестораны" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="black" VerticalOptions="Center" Grid.Column="1"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategorySelected" CommandParameter="Рестораны"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+                            <!-- Category 4 -->
+                            <Grid Padding="10" ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                                <Image Source="categ4.jpg" Aspect="AspectFill" HeightRequest="50" WidthRequest="50" Grid.Column="0" Margin="0,0,10,0"/>
+                                <Label Text="Недвижимость" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="black" VerticalOptions="Center" Grid.Column="1"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategorySelected" CommandParameter="Недвижимость"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+                            <!-- Category 5 -->
+                            <Grid Padding="10" ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                                <Image Source="categ5.jpg" Aspect="AspectFill" HeightRequest="50" WidthRequest="50" Grid.Column="0" Margin="0,0,10,0"/>
+                                <Label Text="Обслуживание" FontSize="16" FontFamily="sf-ui-display-medium" TextColor="black" VerticalOptions="Center" Grid.Column="1"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategorySelected" CommandParameter="Обслуживание"/>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                            <BoxView Color="LightGray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Overlay for selecting payment type -->
+            <Frame x:Name="paymentOverlay" IsVisible="False" BackgroundColor="White" Padding="10" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="100" WidthRequest="300" CornerRadius="10">
+                <Grid>
+                    <!-- Определяем строки для заголовка и содержимого -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Заголовок -->
+                    <Label Text="Добавить сумму" FontSize="18" FontFamily="sf-ui-display-bold" TextColor="black" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,0,0,10" Grid.Row="0"/>
+
+                    <!-- Контент для выбора платежного метода -->
+                    <Grid Grid.Row="1" Padding="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Кнопка "Наличные" -->
+                        <Button Text="Наличные" Grid.Row="0" Grid.Column="0" Clicked="OnPaymentMethodSelected" BackgroundColor="White" TextColor="blue" HorizontalOptions="FillAndExpand"/>
+
+                        <!-- Вертикальная черточка -->
+                        <BoxView Color="LightGray" Grid.Row="0" Grid.Column="1" HeightRequest="40" WidthRequest="1" VerticalOptions="Center"/>
+
+                        <!-- Кнопка "Безналичные" -->
+                        <Button Text="Безналичные" Grid.Row="0" Grid.Column="2" Clicked="OnPaymentMethodSelected" BackgroundColor="White" TextColor="blue" HorizontalOptions="FillAndExpand"/>
+                    </Grid>
+                </Grid>
+            </Frame>
+
+            <!-- Overlay for entering sum -->
+            <Frame x:Name="sumOverlay" IsVisible="False" BackgroundColor="white" Padding="20" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="150" WidthRequest="300" CornerRadius="15">
+                <VerticalStackLayout>
+                    <Entry x:Name="sumEntry" Placeholder="Введите сумму" Keyboard="Numeric"/>
+                    <Button x:Name="ConfirmButton"
+        Text="Подтвердить"
+        Clicked="OnSumEntered"
+        CornerRadius="25"
+        HeightRequest="50"
+        HorizontalOptions="FillAndExpand"
+        Margin="10"
+        Padding="10"
+        FontSize="16"
+        FontFamily="sf-ui-display-bold">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FF8204" Offset="0.0" />
+                                <!-- Темно-оранжевый -->
+                                <GradientStop Color="#FFB738" Offset="1.0" />
+                                <!-- Светло-оранжевый -->
+                            </LinearGradientBrush>
+                        </Button.Background>
+                        <Button.TextColor>White</Button.TextColor>
+                    </Button>
+                </VerticalStackLayout>
+            </Frame>
+            <!-- Transactions Section -->
+            <Frame CornerRadius="25" Padding="5" BackgroundColor="White" Margin="0,0,0,3" HasShadow="True" HeightRequest="310" IsVisible="False">
+                <ScrollView>
+                    <VerticalStackLayout x:Name="transactionsList">
+                        <!-- Placeholder for transaction items -->
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,49 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:BankExtensionFinal"
+             x:Class="BankExtensionFinal.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Определение стиля для RadioButton -->
+            <Style TargetType="RadioButton">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="OpenSansRegular"/>
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="BorderColor" Value="Blue"/>
+                <!-- Обводка для выбранного состояния -->
+                <Setter Property="CornerRadius" Value="22"/>
+                <!-- Полуразмер, чтобы получить круг -->
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Margin" Value="5"/>
+
+                <!-- Определение Visual States -->
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BorderColor" Value="LightGray"/>
+                                    <!-- Цвет обводки в нормальном состоянии -->
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BorderColor" Value="Blue"/>
+                                    <!-- Цвет обводки в выбранном состоянии -->
+                                    <Setter Property="BackgroundColor" Value="LightBlue"/>
+                                    <!-- Цвет фона в выбранном состоянии -->
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
